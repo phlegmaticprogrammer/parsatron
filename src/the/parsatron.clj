@@ -192,25 +192,10 @@
       (eok nil state)
       (eerr (expect-error "end of input" pos)))))
 
-(defn char
-  "Consume the given character"
-  [c]
-  (token #(= c %)))
-
 (defn any-char
   "Consume any character"
   []
   (token #(char? %)))
-
-(defn digit
-  "Consume a digit [0-9] character"
-  []
-  (token #(Character/isDigit %)))
-
-(defn letter
-  "Consume a letter [a-zA-Z] character"
-  []
-  (token #(Character/isLetter %)))
 
 (defn between
   "Parse p after parsing open and before parsing close, returning the
