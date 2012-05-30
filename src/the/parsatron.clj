@@ -9,7 +9,7 @@
 (defrecord Err [errmsg])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; position
+;; positions
 (defn inc-sourcepos
   "Increment the source position by a single character, c. On newline,
    increments the SourcePos's line number and resets the column, on
@@ -78,7 +78,7 @@
   `(defn ~name ~args
      (fn [state# cok# cerr# eok# eerr#]
        (let [p# (>> ~@body)]
-         (p# state# cok# cerr# eok# eerr#)))))
+         #(p# state# cok# cerr# eok# eerr#)))))
 
 (defmacro >>
   "Expands into nested nxt forms"
@@ -226,7 +226,7 @@
             (Ok. item))
           (eerr [err]
             (Err. (show-error err)))]
-    (p state cok cerr eok eerr)))
+    (trampoline p state cok cerr eok eerr)))
 
 (defn run
   "Run a parser p over some input. The input can be a string or a seq
