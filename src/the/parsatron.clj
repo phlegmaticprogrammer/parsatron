@@ -50,7 +50,7 @@
    input"
   [x]
   (fn [state cok cerr eok eerr]
-    (eok x state)))
+    #(eok x state)))
 
 (defn bind
   "Parse p, and then q. The function f must be of one argument, it
@@ -63,7 +63,7 @@
             (peok [item state]
               (let [q (f item)]
                 (q state cok cerr eok eerr)))]
-      (p state pcok cerr peok eerr))))
+      #(p state pcok cerr peok eerr))))
 
 (defn nxt
   "Parse p and then q, returning q's value and discarding p's"
